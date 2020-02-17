@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建任务</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/add-plug.css' %}">
+    <!-- input field -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}"/>
+    <!-- selector -->
+    <link rel="stylesheet" href="{% static 'css/tastySelect.css' %}">
+
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+</head>
+<body>
+<div class="main-container">
+    <div class="h4-container">
+        <h4>新建任务</h4>
+        <h4 style="width:200px;height:1px;padding:0;">
+        </h4>
+        <h4 class="return"><a href="{% url 'index' %}">返回</a></h4>
+    </div>
+    <hr/>
+    <div class="form-container">
+        <form method="post" action="{% url 'Task:task_create' %}">
+            {% csrf_token %}
+            <div class="block-1">
+                    <span class="input input--madoka">
+                        <input name="task_name" class="input__field input__field--madoka" type="text" id="input-91"
+                               required="required"/>
+                        <label class="input__label input__label--madoka" for="input-91">
+                            <svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+                                <path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+                            </svg>
+                            <span class="input__label-content input__label-content--madoka">任务名称：</span>
+                        </label>
+				    </span>
+
+
+                <span class="input input--madoka">
+                        <input name="target_address" class="input__field input__field--madoka" type="text" id="input-92"
+                               required="required"/>
+                        <label class="input__label input__label--madoka" for="input-92">
+                            <svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+                                <path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+                            </svg>
+                            <span class="input__label-content input__label-content--madoka">目标地址：</span>
+                        </label>
+				    </span>
+                <span class="input input--madoka">
+                        <input name="target_port" class="input__field input__field--madoka" type="text" id="input-93"
+                               required="required"/>
+                        <label class="input__label input__label--madoka" for="input-93">
+                            <svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+                                <path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+                            </svg>
+                            <span class="input__label-content input__label-content--madoka">目标端口：</span>
+                        </label>
+				    </span>
+
+                <span class="input input--madoka gray-span multi">
+						<div class="content">
+							<select name="multi-attribute" id="tastySelect" multiple required="required">
+							<optgroup label="执行周期：">
+                                <option value="0">每天</option>
+                                <option value="1">每周一次</option>
+                                <option value="2">每月一次</option>
+							</optgroup>
+							<optgroup label="是否自动刷新列表：">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+							</optgroup>
+                            <optgroup label="危害等级：">
+                                <option value="3">高危</option>
+                                <option value="2">危险</option>
+                                <option value="1">中等</option>
+                                <option value="0">普通</option>
+							</optgroup>
+							</select>
+						</div>
+						<div class="content" style="display:none;">
+							<ul class="styling">
+							<li><input type="radio" checked data-class='future' name="styling" id="r1"><label for="r1">Basic Theme</label></li>
+							<li><input type="radio" data-class='jelly' name="styling" id="r2"><label for="r2">Fancy Theme</label></li>
+							</ul>
+						</div>
+
+					</span>
+
+                <div class="float-window">
+                    <span class="close_btn">&times;</span>
+
+                    <div class="float-container">
+
+                        <!--<span class="input input&#45;&#45;madoka">-->
+                        <!--<input name="task_type" class="input__field input__field&#45;&#45;madoka" type="text" id="input-94"-->
+                               <!--required="required"/>-->
+                        <!--<label class="input__label input__label&#45;&#45;madoka" for="input-94">-->
+                            <!--<svg class="graphic graphic&#45;&#45;madoka" width="100%" height="100%" viewBox="0 0 404 77"-->
+                                 <!--preserveAspectRatio="none">-->
+                                <!--<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>-->
+                            <!--</svg>-->
+                            <!--<span class="input__label-content input__label-content&#45;&#45;madoka">任务类型：</span>-->
+                        <!--</label>-->
+    				    <!--</span>-->
+
+                        <span class="input input--madoka new-input-style task">
+                                <select name="task_type" class="plug task-type spec" required="required">
+                                    <option value="no sense">请选择任务类型：</option>
+                                    {% if task_type_list %}
+                                        {% for type in task_type_list %}
+                                            <option value="{{ type.p_type }}">{{ type.p_type }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <!--最后这个要删掉-->
+                                    <option value="1">端口扫描(这个是例子,需删除)</option>
+                                </select>
+                        </span>
+
+                        <span class="input input--madoka new-input-style">
+                            <div class="choose-type">
+                                <span>格式：
+                                    <label><input
+                                            type="radio"
+                                            name="ext"
+                                            value="json"
+                                            checked="checked">json</label>&nbsp;
+                                    <label><input
+                                            type="radio"
+                                            name="ext"
+                                            value="script">script</label>
+                                </span>
+                            </div>
+                        </span>
+
+                        <script>
+                            $('input[value=json]').click(function () {
+                                $('select.jplug').removeAttr('disabled');
+                                $('select.splug').attr('disabled', 'disabled');
+                            });
+                            $('input[value=script]').click(function () {
+                                $('select.splug').removeAttr('disabled');
+                                $('select.jplug').attr('disabled', 'disabled');
+                            });
+
+                        </script>
+
+                        <span class="input input--madoka new-input-style jp">
+                                <select name="jplug" class="plug jplug spec" required="required">
+                                    <!--{% for json_plug in json_plug_list %}-->
+                                        <!--<option value="{{ json_plug.id }}">{{ json_plug.name }}</option>-->
+                                    <!--{% endfor %}-->
+                                    <option value="non">请先选择任务类型</option>
+                                </select>
+                        </span>
+
+                        <span class="input input--madoka new-input-style sp">
+                                <select name="splug" class="plug splug spec" required="required" disabled="disabled">
+                                    <!--{% for script_plug in script_plug_list %}-->
+                                        <!--<option value="{{ script_plug.id }}">{{ script_plug.name }}</option>-->
+                                    <!--{% endfor %}-->
+                                    <option value="non">请先选择任务类型</option>
+                                </select>
+                        </span>
+                        <script>
+                            //ajax，将任务类型传到后台，然后返回相应插件列表以供选择
+                            $('select.plug.task-type option').click(function(){
+                                if($(this).val() == 'no sense'){
+                                    return;
+                                }
+                                $('select.plug.task-type').css('border', '2px solid #7A7593');
+                                var h = $(this).text();
+                                $('select.plug.task-type option[value="no sense"]').remove();
+                                <!--alert(h);-->
+                                 $.ajax({
+                                     type: "GET",
+                                     url: "{% url 'Task:task_create' %}",
+                                     data: {task_type: h},
+                                     dataType: "json",
+                                     beforeSend: function(){
+                                        $('select.jplug').empty();
+                                        $('select.splug').empty();
+                                        $("select.jplug").html('<option value="non">数据拉取中...</option>');
+                                        $("select.splug").html('<option value="non">数据拉取中...</option>');
+                                     },
+                                     success: function(result){
+                                         $('select.jplug').empty();
+                                         $('select.splug').empty();
+                                         //alert(result['json_plug_list']);
+                                         //alert(result['script_plug_list']);
+                                        var jpl = result['json_plug_list'];
+                                        var spl = result['script_plug_list'];
+                                        if(jpl.length == 0){
+                                            $("select.jplug").html('<option value="non">没有数据，此条仅为了方便调试，实际不可能没有数据</option>');
+                                        }
+                                        else {
+                                            var cnt = '';
+                                            for(var i=0;i<jpl.length;i++){
+                                                cnt += '<option value="'+jpl[i]["id"]+'">'+jpl[i]["name"]+'</option>';
+                                            }
+                                            $("select.jplug").html(cnt);
+                                        }
+                                        if(spl.length == 0){
+                                            $("select.splug").html('<option value="non">没有数据，此条仅为了方便调试，实际不可能没有数据</option>');
+                                        }
+                                        else {
+                                            var cnt = '';
+                                            for(var i=0;i<spl.length;i++){
+                                                cnt += '<option value="'+spl[i]["id"]+'">'+spl[i]["name"]+'</option>';
+                                            }
+                                            $("select.splug").html(cnt);
+                                        }
+                                     },
+                                     error: function(){
+                                        //需要进行出错处理，尚未完成！
+                                        alert('出错了！');
+                                     }
+                                 });
+                            });
+
+
+                        </script>
+
+                        <script>
+                            $('.float-window .close_btn').click(function () {
+                                $('.float-window').hide();
+                            });
+                        </script>
+                    </div>
+
+                    <button class="submit_ sub">提交</button>
+                    <script>
+                        $('.sub').click(function () {
+                            //判断插件类型是否选取！
+                            if($('select.plug.task-type option:selected').val() == 'no sense'){
+                                $('select.plug.task-type').css('border', '1.5px solid red');
+                                return false;
+                            }
+                        });
+                    </script>
+
+                </div>
+                <!--<input type="hidden" name="plug">-->
+
+                <button class="submit_ choose-plug">选择插件</button>
+                <script>
+                    $('.choose-plug').click(function () {
+                        //先检查是否填完
+                        if ($('input[name=task_name]').val() == '') {
+                            alert('请填写任务名称!');
+                            return false;
+                        }
+                        /*if ($('input[name=task_type]').val() == '') {
+                            alert('请填写任务类型!');
+                            return false;
+                        }*/
+                        if ($('input[name=target_address]').val() == '') {
+                            alert('请填写目标地址!');
+                            return false;
+                        }
+                        if ($('input[name=target_port]').val() == '') {
+                            alert('请填写目标端口!');
+                            return false;
+                        }
+
+                        /*针对ip地址和端口的检查！！！需要时正确地格式
+                        if($('input[name=target_port]').val()){
+                            alert('为实现');
+                        }*/
+
+                        //检查多选项目
+                        var list_ = $('span.multi li.style-select-option.st_selected');
+                        var n = list_.length;
+                        //alert(n);
+                        if (n < 3) {
+                            alert('执行周期、是否自动刷新列表、危害等级都是必填项，请选择相应内容！');
+                            return false;
+                        }
+                        else if (n > 3) {
+                            alert('执行周期、是否自动刷新列表、危害等级都是单选项，请不要重复选择！');
+                            return false;
+                        }
+                        else {
+                            //虽然选了三个，但还是要分类！因为可能重复选
+                            var co = Array();
+                            var cmp = Array();
+                            optgroup = $('.multi ul.style-select-optgroup');
+                            for (var j = 0; j < optgroup.length; j++) {
+                                tmp = Array();
+                                co.push(tmp);
+                                cmp.push(false);
+                                lis = optgroup[j].children;
+                                for (var k = 1; k < lis.length; k++) {
+                                    co[j].push(lis[k].textContent);
+                                }
+                            }
+                            //alert(co);
+
+                            for (var j = 0; j < list_.length; j++) {
+                                t = list_[j].textContent;
+
+                                for (var l = 0; l < co[j].length; l++) {
+                                    if (t == co[j][l]) {
+                                        cmp[j] = true;
+                                    }
+                                }
+                            }
+                            //alert(cmp);
+
+
+                            for (var k = 0; k < list_.length; k++) {
+                                if (cmp[k] == false) {
+                                    alert('执行周期、是否自动刷新列表、危害等级都是必选项且是单选项，请不要重复选择或者漏选！');
+                                    return false;
+                                }
+                            }
+                        }
+
+                        $('.float-window').show();
+                        $('.float-window .sp .style-select-options').hide();
+                        $('.float-window .sp .style-select-title').hide();
+
+                        return false;
+                    });
+                </script>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'js/classie.js' %}"></script>
+<script src="{% static 'js/tastySelect.min.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+
+
+<script>
+    (function () {
+        // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+        if (!String.prototype.trim) {
+            (function () {
+                // Make sure we trim BOM and NBSP
+                var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+                String.prototype.trim = function () {
+                    return this.replace(rtrim, '');
+                };
+            })();
+        }
+
+        [].slice.call(document.querySelectorAll('.input__field')).forEach(function (inputEl) {
+            // in case the input is already filled..
+            if (inputEl.value.trim() !== '') {
+                classie.add(inputEl.parentNode, 'input--filled');
+            }
+
+            // events:
+            inputEl.addEventListener('focus', onInputFocus);
+            inputEl.addEventListener('blur', onInputBlur);
+        });
+
+        function onInputFocus(ev) {
+            classie.add(ev.target.parentNode, 'input--filled');
+        }
+
+        function onInputBlur(ev) {
+            if (ev.target.value.trim() === '') {
+                classie.remove(ev.target.parentNode, 'input--filled');
+            }
+        }
+    })();
+</script>
+<script src="{% static 'js/prettify.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+
+
+</body>
+</html>

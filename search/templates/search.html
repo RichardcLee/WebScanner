@@ -1,0 +1,25 @@
+<h4>WebScanner提供多样化的搜索服务</h4>
+
+<form name="search" class="search" method="post" action="{% url 'search' %}">
+    {% csrf_token %}
+    <input type="text" required="required" name="input_search"/>
+    <label class='warn' alt="请键入搜索类型" placeholder="Example:"></label>
+    <div>
+        <div>
+            <button>搜 索</button>
+            <svg viewBox="0 0 20 20">
+                <path d="M8.75 13.75h2.5v2.5h-2.5zM13.75 5c0.69 0 1.25 0.56 1.25 1.25v3.75l-3.75 2.5h-2.5v-1.25l3.75-2.5v-1.25h-6.25v-2.5h7.5zM10 1.875c-2.17 0-4.211 0.845-5.745 2.38s-2.38 3.575-2.38 5.745c0 2.17 0.845 4.211 2.38 5.745s3.575 2.38 5.745 2.38c2.17 0 4.211-0.845 5.745-2.38s2.38-3.575 2.38-5.745c0-2.17-0.845-4.211-2.38-5.745s-3.575-2.38-5.745-2.38zM10 0v0c5.523 0 10 4.477 10 10s-4.477 10-10 10c-5.523 0-10-4.477-10-10s4.477-10 10-10z"></path>
+            </svg>
+            <div class="tips">
+                <span>查询方法：</span>
+                <ol>
+                    <li>1.<span>port:</span></li>
+                    <li>2.<span>target:</span></li>
+                    <li>3.<span>task:</span></li>
+                    <li>4.<span>tag:</span></li>
+                    <!-- 前面只是示例 -->
+                </ol>
+            </div>
+        </div>
+    </div>
+</form>

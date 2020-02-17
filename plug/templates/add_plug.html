@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zn">
+<head>
+    <meta charset="UTF-8">
+    <title>添加插件</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/add-plug.css' %}">
+	<!-- input field -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}"/>
+    <!-- selector -->
+	<link rel="stylesheet" href="{% static 'css/tastySelect.css' %}">
+	<!-- file uploader -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.filer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-filer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.filer-dragdropbox-theme.css' %}">
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script>
+        var upload_script = "{% url 'Plug:upload_script' %}";
+        var remove_script = "{% url 'Plug:remove_script' %}";
+    </script>
+</head>
+<body>
+<div class="main-container">
+    <div class="h4-container">
+        <h4>新增插件</h4>
+        <h4>格式：<label><input type="radio" name="ext" value="json" checked="checked">&nbsp;json</label>&nbsp;<label><input type="radio"
+                                                                                                    name="ext"
+                                                                                                    value="script">&nbsp;script</label>
+        </h4>
+        <h4 class="return"><a href="{% url 'index' %}">返回</a></h4>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('input[value="json"]').attr('checked') == 'checked') {
+                $('input[value="json"]').click();
+            }
+            else {
+                $('input[value="script"]').click();
+            }
+
+        });
+        $('input[value="json"]').click(function () {
+            $('div.block-1').show();
+            $('div.block-2').hide();
+            $('.style-select-options').show();
+            $('.style-select-title').show();
+        });
+        $('input[value="script"]').click(function () {
+            $('div.block-2').show();
+            $('div.block-1').hide();
+            $('.style-select-options').hide();
+            $('.style-select-title').hide();
+
+        });
+    </script>
+    <hr/>
+    <div class="form-container">
+        <form method="post" action="{% url 'Plug:upload_json' %}">
+            {% csrf_token %}
+            <div class="block-1">
+				<span class="input input--madoka">
+					<input name="plug_name" class="input__field input__field--madoka" type="text" id="input-91"
+						   required="required"/>
+					<label class="input__label input__label--madoka" for="input-91">
+						<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+							 preserveAspectRatio="none">
+							<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+						</svg>
+						<span class="input__label-content input__label-content--madoka">插件名称：</span>
+					</label>
+				</span>
+
+                <span class="input input--madoka">
+						<input name="plug_intro" class="input__field input__field--madoka" type="text" id="input-93"
+                               required="required"/>
+						<label class="input__label input__label--madoka" for="input-93">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">插件说明：</span>
+						</label>
+					</span>
+                <span class="input input--madoka">
+						<input name="plug_author" class="input__field input__field--madoka" type="text" id="input-94"
+                               required="required"/>
+						<label class="input__label input__label--madoka" for="input-94">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">插件作者：</span>
+						</label>
+					</span><span class="input input--madoka">
+						<input name="author_link" class="input__field input__field--madoka" type="url" id="input-95"/>
+						<label class="input__label input__label--madoka" for="input-95">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">作者链接：（非必填）</span>
+						</label>
+					</span>
+                <span class="input input--madoka">
+						<textarea name="plug_content" class="input__field input__field--madoka" id="input-96"
+                                  required="required"/>
+                    </textarea>
+                    <label class="input__label input__label--madoka" for="input-96">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka textarea_">插件内容：</span>
+						</label>
+					</span>
+                <span class="input input--madoka">
+						<input name="analysis_sample" class="input__field input__field--madoka" type="text"
+                               id="input-97" required="required"/>
+						<label class="input__label input__label--madoka" for="input-97">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">分析样本：</span>
+						</label>
+					</span>
+                <span class="input input--madoka">
+						<input name="search_condition" class="input__field input__field--madoka" type="text"
+                               id="input-98" required="required"/>
+						<label class="input__label input__label--madoka" for="input-98">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">查询条件：</span>
+						</label>
+					</span>
+                <span class="input input--madoka">
+						<input name="plug_tag" class="input__field input__field--madoka" type="text" id="input-99"
+                               required="required"/>
+						<label class="input__label input__label--madoka" for="input-99">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">插件标签：</span>
+						</label>
+					</span>
+                <span class="input input--madoka">
+						<input name="user-define-json" class="input__field input__field--madoka" type="text" id="input-92"/>
+						<label class="input__label input__label--madoka" for="input-92">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">自定义类型：（非必填，自动忽略空格）</span>
+						</label>
+                    </span>
+                <span class="input input--madoka gray-span">
+						<div class="content">
+							<select name="multi-attribute" id="tastySelect" multiple required="required">
+							<optgroup label="危害等级：">
+                                <option value="3">普通</option>
+                                <option value="2">中等</option>
+                                <option value="1">危险</option>
+							    <option value="0">高危</option>
+							</optgroup>
+							<optgroup label="分析方式：">
+                                <option value="0">正则</option>
+                                <option value="1">关键字</option>
+                                <option value="2">MD5</option>
+							</optgroup>
+                            <optgroup label="插件类型：">
+							{% if plug_type_list %}
+                                {% for type in plug_type_list %}
+                                    <option value="{{ type.id }}">{{ type.p_type }}</option>
+                                {% endfor %}
+                            {% endif %}
+                                <option value="user-define-json">无合适类型请点击这个，并在上方填写自定义类型</option>
+                            </optgroup>
+							</select>
+						</div>
+						<div class="content" style="display:none;">
+							<ul class="styling">
+							<li><input type="radio" checked data-class='future' name="styling" id="r1"><label for="r1">Basic Theme</label></li>
+							<li><input type="radio" data-class='jelly' name="styling" id="r2"><label for="r2">Fancy Theme</label></li>
+							</ul>
+						</div>
+
+					</span>
+                <button class="submit_ sub">提交</button>
+                <script>
+                    $('.sub').click(function(){
+                        //alert($('.style-select-title').html());
+                        //var cont = $('.style-select-title').html();
+
+                         //var n = (cont.split(',')).length-1;
+                         var list_ = $('li.style-select-option.st_selected');
+                         var n = list_.length;
+                         //alert(n);
+                         if(n < 3) {
+                            alert('危害等级、分析方式、插件类型都是必填项，请选择相应内容！');
+                            return false;
+                         }
+                         else if (n > 3){
+                            alert('危害等级、分析方式、插件类型都是单选项，请不要重复选择！');
+                            return false;
+                         }
+                         else {
+                            //虽然选了三个，但还是要分类！因为可能重复选
+                            var co = Array();
+                            var cmp = Array();
+                            optgroup = $('ul.style-select-optgroup');
+                            for(var j=0;j<optgroup.length;j++){
+                                tmp = Array();
+                                co.push(tmp);
+                                cmp.push(false);
+                                lis = optgroup[j].children;
+                                for(var k=1;k<lis.length;k++){
+                                    co[j].push(lis[k].textContent);
+                                }
+                            }
+                            //alert(co);
+
+                            for(var j=0;j<n;j++){
+                                t = list_[j].textContent;
+
+                                for(var l=0;l<co[j].length;l++){
+                                    if(t == co[j][l]) {
+                                        cmp[j] = true;
+                                    }
+                                }
+                            }
+                            //alert(cmp);
+
+
+                            for(var k=0;k<list_.length;k++){
+                                if(cmp[k]==false){
+                                    alert('危害等级、分析方式、插件类型都是必选项且是单选项，请不要重复选择或者漏选！');
+                                    return false;
+                                }
+                            }
+
+							//alert(list_[2].textContent);
+							if(list_[2].textContent=='无合适类型请点击这个，并在上方填写自定义类型'){
+								//alert($('input[name=user-define-json]').val()=='');
+								if($('input[name=user-define-json]').val()=='') {
+									alert('请填写自定义类型！');
+									return false;
+								}
+							}
+
+                            return true;
+                         }
+
+
+                    });
+                </script>
+            </div>
+        </form>
+        <!--action="{% url 'Plug:upload_script' %}"-->
+        <form method="post" action="{% url 'Plug:upload_script_done' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="block-2">
+                <div class="col-md-6">
+                    <input type="file" name="files[]" id="demo-fileInput-6" multiple required="required">
+					<span class="input input--madoka">
+						<input name="user-define-script" class="input__field input__field--madoka" type="text" id="input-90"/>
+						<label class="input__label input__label--madoka" for="input-90">
+							<svg class="graphic graphic--madoka" width="100%" height="100%" viewBox="0 0 404 77"
+                                 preserveAspectRatio="none">
+								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
+							</svg>
+							<span class="input__label-content input__label-content--madoka">自定义类型：（非必填，自动忽略空格）</span>
+						</label>
+                    </span>
+                    <span class="input input--madoka">
+                        <select name="plug_type" class="plug_type spec" required="required">
+                            <option value="do-not-choose-this">请选择插件类型：</option>
+                            {% if plug_type_list %}
+                                    {% for type in plug_type_list %}
+                                        <option value="{{ type.id }}">{{ type.p_type }}</option>
+                                    {% endfor %}
+                            {% endif %}
+                            <option value="user-define-script">无合适类型请点击这个，并在上方填写自定义类型</option>
+                        </select>
+                    </span>
+                </div>
+                <button class="submit_ sub2">确定</button>
+				<script>
+					$('select[name=plug_type] option').click(function(){
+						if($(this).val()=="do-not-choose-this"){
+							return;
+						}
+						$("select[name=plug_type] option[value=do-not-choose-this]").remove();
+					});
+
+					$('button.sub2').click(function(){
+
+						if($("select[name=plug_type] option:selected").val() == 'do-not-choose-this'){
+							alert('请选择插件类型！');
+							return false;
+						}
+
+						if($("select[name=plug_type] option:selected").val() == 'user-define-script'){
+							if($('input[name=user-define-script]').val()=='') {
+									alert('请填写自定义类型！');
+									return false;
+							}
+						}
+
+						else {
+
+							if($('input[name=user-define-script]').val()!='') {
+									if(confirm(('自定义类型将被无视？')) == true){
+										return true;
+									}
+									else
+										return false;
+							}
+						}
+
+					});
+				</script>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<script src="{% static 'js/classie.js' %}"></script>
+<script src="{% static 'js/tastySelect.min.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+
+
+<script>
+    (function () {
+        // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+        if (!String.prototype.trim) {
+            (function () {
+                // Make sure we trim BOM and NBSP
+                var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+                String.prototype.trim = function () {
+                    return this.replace(rtrim, '');
+                };
+            })();
+        }
+
+        [].slice.call(document.querySelectorAll('.input__field')).forEach(function (inputEl) {
+            // in case the input is already filled..
+            if (inputEl.value.trim() !== '') {
+                classie.add(inputEl.parentNode, 'input--filled');
+            }
+
+            // events:
+            inputEl.addEventListener('focus', onInputFocus);
+            inputEl.addEventListener('blur', onInputBlur);
+        });
+
+        function onInputFocus(ev) {
+            classie.add(ev.target.parentNode, 'input--filled');
+        }
+
+        function onInputBlur(ev) {
+            if (ev.target.value.trim() === '') {
+                classie.remove(ev.target.parentNode, 'input--filled');
+            }
+        }
+    })();
+</script>
+<script src="{% static 'js/jquery.filer.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/prettify.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
+</body>
+</html>

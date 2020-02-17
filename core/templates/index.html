@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webscanner</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input_prt.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tooltip.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jplist.min.css' %}"/>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tooltip.js' %}"></script>
+    <script type="text/javascript" src=" {% static 'js/modernizr.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jplist.min.js' %}"></script>
+
+
+</head>
+<body>
+<!-- navigator begin-->
+{% include 'nav.html' %}
+<!-- navigator end-->
+
+<!-- 模块 -->
+<div class="tabs">
+    <input type="radio" id="tab1" name="tab-control" checked>
+    <input type="radio" id="tab2" name="tab-control">
+    <input type="radio" id="tab3" name="tab-control">
+    <input type="radio" id="tab4" name="tab-control">
+    <input type="radio" id="tab5" name="tab-control">
+    <ul>
+        <li title="搜索">
+            <label for="tab1" role="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M23.256 20.423l-5.685-4.835c-0.588-0.529-1.216-0.772-1.724-0.748 1.342-1.572 2.153-3.611 2.153-5.84 0-4.971-4.029-9-9-9s-9 4.029-9 9 4.029 9 9 9c2.229 0 4.268-0.811 5.84-2.153-0.023 0.508 0.219 1.136 0.748 1.724l4.835 5.685c0.828 0.92 2.18 0.997 3.005 0.172s0.747-2.177-0.172-3.005zM9 15c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z"/>
+                </svg>
+                <br>
+                <span>搜索</span>
+            </label>
+        </li>
+        <li title="任务">
+            <label for="tab2" role="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21.75 3h-6.75c0-1.657-1.343-3-3-3s-3 1.343-3 3h-6.75c-0.414 0-0.75 0.336-0.75 0.75v19.5c0 0.414 0.336 0.75 0.75 0.75h19.5c0.414 0 0.75-0.336 0.75-0.75v-19.5c0-0.414-0.336-0.75-0.75-0.75zM12 1.5c0.828 0 1.5 0.672 1.5 1.5s-0.672 1.5-1.5 1.5c-0.828 0-1.5-0.672-1.5-1.5s0.672-1.5 1.5-1.5zM21 22.5h-18v-18h3v2.25c0 0.414 0.336 0.75 0.75 0.75h10.5c0.414 0 0.75-0.336 0.75-0.75v-2.25h3v18z"></path>
+                    <path d="M10.5 20.121l-4.811-5.561 1.371-1.371 3.439 2.689 6.439-5.689 1.371 1.371z"></path>
+                </svg>
+                <br>
+                <span>任务</span>
+            </label>
+        </li>
+        <li title="插件">
+            <label for="tab3" role="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M8.223 19.415c-1.413-0.353-2.2-1.476-2.202-3.142-0.001-0.533 0.038-0.788 0.171-1.131 0.326-0.84 1.189-1.474 2.324-1.707 0.565-0.116 0.739-0.241 0.739-0.529 0-0.091 0.067-0.36 0.149-0.599 0.373-1.085 1.065-1.99 1.803-2.36 0.773-0.387 1.163-0.475 2.099-0.47 1.328 0.007 1.991 0.295 2.918 1.269l0.51 0.535 0.457-0.158c2.21-0.765 4.413 0.537 4.591 2.713l0.049 0.595 0.435 0.156c1.243 0.445 1.827 1.381 1.721 2.755-0.069 0.899-0.49 1.617-1.155 1.973l-0.313 0.167-6.957 0.013c-5.346 0.010-7.045-0.009-7.339-0.082v0zM2.419 18.421c-0.848-0.213-1.746-1.004-2.167-1.909-0.239-0.513-0.252-0.589-0.252-1.497 0-0.864 0.020-1.003 0.211-1.432 0.401-0.904 1.169-1.558 2.134-1.814 0.204-0.054 0.395-0.141 0.425-0.192s0.064-0.332 0.075-0.623c0.067-1.809 1.19-3.403 2.759-3.915 0.847-0.277 1.959-0.302 2.88 0.087 0.292 0.124 0.259 0.15 0.877-0.706 0.365-0.507 1.057-1.043 1.662-1.364 0.652-0.346 1.331-0.506 2.142-0.504 2.268 0.006 4.223 1.505 4.945 3.793 0.231 0.731 0.219 0.936-0.053 0.942-0.119 0.003-0.459 0.072-0.757 0.154l-0.541 0.149-0.493-0.521c-1.391-1.47-3.662-1.788-5.592-0.783-0.771 0.402-1.391 0.978-1.859 1.73-0.334 0.536-0.759 1.535-0.759 1.783 0 0.176-0.135 0.264-0.711 0.464-1.783 0.618-2.824 2.046-2.824 3.872 0 0.665 0.162 1.478 0.387 1.944 0.085 0.176 0.132 0.343 0.105 0.371-0.069 0.073-2.288 0.048-2.594-0.029v0z"/>
+                </svg>
+                <br>
+                <span>插件</span>
+            </label>
+        </li>
+        <li title="统计">
+            <label for="tab4" role="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M0 4.5v16.5h24v-16.5h-24zM9 15v-3h6v3h-6zM15 16.5v3h-6v-3h6zM15 7.5v3h-6v-3h6zM7.5 7.5v3h-6v-3h6zM1.5 12h6v3h-6v-3zM16.5 12h6v3h-6v-3zM16.5 10.5v-3h6v3h-6zM1.5 16.5h6v3h-6v-3zM16.5 19.5v-3h6v3h-6z"></path>
+                </svg>
+                <br>
+                <span>统计</span>
+            </label>
+        </li>
+        <li title="配置">
+            <label for="tab5" role="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21.886 14.303c-1.259-2.181-0.502-4.976 1.691-6.246l-2.358-4.085c-0.674 0.395-1.457 0.622-2.293 0.622-2.52 0-4.563-2.057-4.563-4.594h-4.717c0.006 0.783-0.189 1.577-0.608 2.303-1.259 2.181-4.058 2.923-6.255 1.658l-2.358 4.085c0.679 0.386 1.267 0.951 1.685 1.675 1.257 2.178 0.504 4.967-1.681 6.24l2.358 4.085c0.671-0.391 1.451-0.615 2.283-0.615 2.512 0 4.55 2.044 4.563 4.569h4.717c-0.002-0.775 0.194-1.56 0.609-2.279 1.257-2.177 4.049-2.92 6.244-1.664l2.358-4.085c-0.675-0.386-1.258-0.949-1.674-1.669zM12 16.859c-2.684 0-4.859-2.176-4.859-4.859s2.176-4.859 4.859-4.859c2.684 0 4.859 2.176 4.859 4.859s-2.176 4.859-4.859 4.859z"></path>
+                </svg>
+                <br>
+                <span>配置</span>
+            </label>
+        </li>
+    </ul>
+
+        <div class="slider"><div class="indicator"></div></div>
+
+        <div class="content">
+                <section>
+                  <h2>搜索</h2>
+                    {% include 'search.html'%}
+                    <script src="{% static 'js/tips.js' %}"></script>
+                </section>
+                <section>
+                  <h2>任务</h2>
+                    {% include 'task.html' %}
+                </section>
+                <section>
+                  <h2>插件</h2>
+                    {% include 'plug.html' %}
+                </section>
+                <section>
+                  <h2>统计</h2>
+                    {% include 'statistics.html' %}
+                </section>
+                <section>
+                  <h2>配置</h2>
+                    {% include 'system_settings.html' %}
+                </section>
+            </div>
+</div>
+
+<!-- footer begin -->
+{% include 'footer.html' %}
+<!-- footer end -->
+
+
+</body>
+</html>

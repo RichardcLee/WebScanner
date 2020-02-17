@@ -1,0 +1,92 @@
+<form action="" method="post" name="configure" class="configure">
+    {% csrf_token %}
+    <ul>
+        <!-- 默认配置取自数据库 -->
+        <li class="row">
+            <div class="col col-1">
+                <span>最大线程数：</span>
+                <svg id='ss' viewBox="0 0 20 20 {{ bigOrNone }}" >
+                    <path d="M8.75 13.75h2.5v2.5h-2.5zM13.75 5c0.69 0 1.25 0.56 1.25 1.25v3.75l-3.75 2.5h-2.5v-1.25l3.75-2.5v-1.25h-6.25v-2.5h7.5zM10 1.875c-2.17 0-4.211 0.845-5.745 2.38s-2.38 3.575-2.38 5.745c0 2.17 0.845 4.211 2.38 5.745s3.575 2.38 5.745 2.38c2.17 0 4.211-0.845 5.745-2.38s2.38-3.575 2.38-5.745c0-2.17-0.845-4.211-2.38-5.745s-3.575-2.38-5.745-2.38zM10 0v0c5.523 0 10 4.477 10 10s-4.477 10-10 10c-5.523 0-10-4.477-10-10s4.477-10 10-10z"></path>
+                </svg>
+
+                <input type="number" name="thread-number" max="{{ max_t_n }}" min="1" placeholder="{{ default_t_n }}" required="required"/>
+                <button>更 新</button>
+            </div>
+            <div class="col col-2 {{ bigOrNone }}">
+                <span>最大进程数：</span>
+                <svg id="we" viewBox="0 0 20 20">
+                    <path d="M8.75 13.75h2.5v2.5h-2.5zM13.75 5c0.69 0 1.25 0.56 1.25 1.25v3.75l-3.75 2.5h-2.5v-1.25l3.75-2.5v-1.25h-6.25v-2.5h7.5zM10 1.875c-2.17 0-4.211 0.845-5.745 2.38s-2.38 3.575-2.38 5.745c0 2.17 0.845 4.211 2.38 5.745s3.575 2.38 5.745 2.38c2.17 0 4.211-0.845 5.745-2.38s2.38-3.575 2.38-5.745c0-2.17-0.845-4.211-2.38-5.745s-3.575-2.38-5.745-2.38zM10 0v0c5.523 0 10 4.477 10 10s-4.477 10-10 10c-5.523 0-10-4.477-10-10s4.477-10 10-10z"></path>
+                </svg>
+                <input type="number" name="processor-number" max="{{ max_p_n }}" min="1" placeholder="{{ default_p_n }}" required="required"/>
+                <button>更 新</button>
+            </div>
+        </li>
+        <li class="row">
+            <div class="col col-1 big">
+                <span>代码语言识别规则：</span>
+                <svg id="hhe" viewBox="0 0 20 20">
+                    <path d="M8.75 13.75h2.5v2.5h-2.5zM13.75 5c0.69 0 1.25 0.56 1.25 1.25v3.75l-3.75 2.5h-2.5v-1.25l3.75-2.5v-1.25h-6.25v-2.5h7.5zM10 1.875c-2.17 0-4.211 0.845-5.745 2.38s-2.38 3.575-2.38 5.745c0 2.17 0.845 4.211 2.38 5.745s3.575 2.38 5.745 2.38c2.17 0 4.211-0.845 5.745-2.38s2.38-3.575 2.38-5.745c0-2.17-0.845-4.211-2.38-5.745s-3.575-2.38-5.745-2.38zM10 0v0c5.523 0 10 4.477 10 10s-4.477 10-10 10c-5.523 0-10-4.477-10-10s4.477-10 10-10z"></path>
+                </svg>
+                <textarea required="required"></textarea>
+                <button>更 新</button>
+            </div>
+            <div class="col col-2"></div>
+        </li>
+        <script type="text/javascript">
+            $(document).ready(function(){
+              $('#ss').tooltip({text: '这是一个Tooltip！'});
+              $('#hhe').tooltip({text: '这是一个Tooltip！'});
+              $('#we').tooltip({text: '这是一个Tooltip！',fontSize: '14px',
+                theme: 'light',
+                fontFamily: "'Open Sans', 'Roboto-Regular', Arial",
+                delay: 100});
+            });
+	    </script>
+        <!-- 以上只是实例 -->
+
+        {% if setting_rows %}
+            {% for row in setting_rows %}
+                <li class="row">
+                    {% if row.0 %}
+                        <div class="col col-1">
+                            <span id="row{{ forloop.counter }}col0">{{ row.0.title }}</span>
+                            <svg viewBox="0 0 20 20">
+                                <path d="M8.75 13.75h2.5v2.5h-2.5zM13.75 5c0.69 0 1.25 0.56 1.25 1.25v3.75l-3.75 2.5h-2.5v-1.25l3.75-2.5v-1.25h-6.25v-2.5h7.5zM10 1.875c-2.17 0-4.211 0.845-5.745 2.38s-2.38 3.575-2.38 5.745c0 2.17 0.845 4.211 2.38 5.745s3.575 2.38 5.745 2.38c2.17 0 4.211-0.845 5.745-2.38s2.38-3.575 2.38-5.745c0-2.17-0.845-4.211-2.38-5.745s-3.575-2.38-5.745-2.38zM10 0v0c5.523 0 10 4.477 10 10s-4.477 10-10 10c-5.523 0-10-4.477-10-10s4.477-10 10-10z"></path>
+                            </svg>
+                            {{ row.0.input }}
+                            <button>更 新</button>
+                        </div>
+                    {% endif %}
+                    {% if row.1 %}
+                        <div class="col col-2">
+                            <span id="row{{ forloop.counter }}col1">{{ row.1.title }}</span>
+                            <svg viewBox="0 0 20 20">
+                                <path d="M8.75 13.75h2.5v2.5h-2.5zM13.75 5c0.69 0 1.25 0.56 1.25 1.25v3.75l-3.75 2.5h-2.5v-1.25l3.75-2.5v-1.25h-6.25v-2.5h7.5zM10 1.875c-2.17 0-4.211 0.845-5.745 2.38s-2.38 3.575-2.38 5.745c0 2.17 0.845 4.211 2.38 5.745s3.575 2.38 5.745 2.38c2.17 0 4.211-0.845 5.745-2.38s2.38-3.575 2.38-5.745c0-2.17-0.845-4.211-2.38-5.745s-3.575-2.38-5.745-2.38zM10 0v0c5.523 0 10 4.477 10 10s-4.477 10-10 10c-5.523 0-10-4.477-10-10s4.477-10 10-10z"></path>
+                            </svg>
+                            {{ row.1.input }}
+                            <button>更 新</button>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        {% endif %}
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                {% if tips %}
+                   {% for tip in tips %}
+                       $('#{{ tip.1.id }}').tooltip({text: '{{ tip.1.desc }}'});
+                       $('#{{ tip.2.id }}').tooltip({text: '{{ tip.2.desc }}', fontSize: '14px',
+                        theme: 'light',
+                        fontFamily: "'Open Sans', 'Roboto-Regular', Arial",
+                        delay: 100});
+                    {% endfor %}
+                {% endif %}
+            });
+	    </script>
+
+
+        <!--<li class="row row-5"><div class="col col-1"></div><div class="col col-2"></div></li>-->
+        <!--<li class="row row-6"><div class="col col-1"></div><div class="col col-2"></div></li>-->
+    </ul>
+</form>
